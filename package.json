@@ -1,0 +1,13 @@
+{
+  "name": "yellowchat",
+  "version": "0.1.0",
+  "description": "This is a chat.",
+  "dependencies": {
+    "ent": "~2.2.0",
+    "express": "~4.16.3",
+    "socket.io": "~2.1.1"
+  },
+  "author": "Sloubi",
+  "license": "MIT",
+  "main": "server.js"
+}
