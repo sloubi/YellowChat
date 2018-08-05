@@ -3,11 +3,28 @@
   "version": "0.1.0",
   "description": "This is a chat.",
   "dependencies": {
+    "bcrypt": "~3.0.0",
+    "config": "~2.0.1",
+    "connect-flash": "~0.1.1",
+    "ejs": "~2.6.1",
     "ent": "~2.2.0",
     "express": "~4.16.3",
+    "express-mysql-session": "~2.0.0",
+    "express-session": "~1.15.6",
+    "mysql": "~2.16.0",
+    "passport": "~0.4.0",
+    "passport-local": "~1.0.0",
     "socket.io": "~2.1.1"
   },
   "author": "Sloubi",
   "license": "MIT",
-  "main": "server.js"
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sloubi/YellowChat.git"
+  },
+  "homepage": "https://github.com/sloubi/YellowChat"
 }

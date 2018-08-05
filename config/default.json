@@ -1,0 +1,16 @@
+{
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "yellowchat"
+    },
+    "server": {
+        "port": 3000
+    },
+    "session": {
+        "secret": "session_secret",
+        "resave": false,
+        "saveUninitialized": false
+    }
+}

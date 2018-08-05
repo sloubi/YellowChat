@@ -1,30 +1,41 @@
-'use strict';
+var express = require('express');
+var app = express();
+var flash = require('connect-flash');
+var config = require('config');
+var passport = require('./lib/auth');
+var connection = require('./lib/database');
+var session = require('./lib/session');
+var server = require('./lib/socket')(app, session);
+var router = require('./lib/router');
 
-var app = require('express')();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
-var ent = require('ent');
-var path = require('path');
+// Serve static files
+app.use(express.static('public'));
 
-const PORT = process.env.PORT || 3000;
+// Request body parsing support
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.resolve(__dirname, './index.html'));
+app.use(session.middleWare);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+app.use('/', router);
+
+server.listen(config.get('server.port'));
+
+// Handle exits
+process.on('exit', function () {
+  session.store.close();
+  connection.end();
 });
-
-io.sockets.on('connection', function (socket) {
-  socket.on('new_user', function (pseudo) {
-    socket.pseudo = ent.encode(pseudo);
-    socket.broadcast.emit('new_user', socket.pseudo);
-  });
-
-  socket.on('new_msg', function (msg) {
-    socket.broadcast.emit('user_msg', { pseudo: socket.pseudo, msg: ent.encode(msg) });
-  });
-
-  socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
+// Catch CTRL+C
+process.on('SIGINT', function () {
+  process.exit(0);
 });
-
-server.listen(PORT);
+// Catch uncaught exception
+process.on('uncaughtException', function () {
+  process.exit(1);
+});

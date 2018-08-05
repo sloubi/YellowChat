@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>YellowChat</title>
+        <style>
+            #sendform {
+                margin-top: 10px;
+            }
+            #chat {
+                margin: 0;
+                list-style: none;
+                border: 1px solid #eee;
+                height: 300px;
+                overflow-y: auto;
+                padding: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>YellowChat</h1>
+
+        <% if (errors.length > 0) { %>
+            <div class="alert alert-warning">
+                <% errors.forEach(function (error) { %>
+                    <%= error %>
+                <% }) %>
+            </div>
+        <% } %>
+
+        <div id="main">
+            <form method="post" action="">
+                <input type="text" name="username" autofocus>
+                <input type="password" name="password">
+                <input type="submit" value="Sign in">
+            </form>
+        </div>
+    </body>
+</html>
