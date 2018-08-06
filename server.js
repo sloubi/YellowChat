@@ -27,15 +27,25 @@ app.use('/', router);
 server.listen(config.get('server.port'));
 
 // Handle exits
-process.on('exit', function () {
+process.stdin.resume(); // so the program will not close instantly
+
+function exitHandler(options, err) {
   session.store.close();
   connection.end();
-});
-// Catch CTRL+C
-process.on('SIGINT', function () {
-  process.exit(0);
-});
-// Catch uncaught exception
-process.on('uncaughtException', function () {
-  process.exit(1);
-});
+
+  if (err) console.log(err.stack);
+  if (options.exit) process.exit();
+}
+
+// When app is closing
+process.on('exit', exitHandler.bind(null));
+
+// Catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+// Catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', exitHandler.bind(null, { exit: true }));
+process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
+
+// Catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, { exit: true }));
