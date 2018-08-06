@@ -6,7 +6,20 @@
         "database": "yellowchat"
     },
     "server": {
-        "port": 3000
+        "url": "http://localhost",
+        "port": 3000,
+        "https": false
+    },
+    "greenlock": {
+        "server": "https://acme-staging-v02.api.letsencrypt.org/directory",
+        "version": "draft-11",
+        "configDir": "~/.config/acme/",
+        "email": "example@example.com",
+        "approveDomains": ["mysite.com"],
+        "agreeTos": true,
+        "communityMember": true,
+        "telemetry": true,
+        "debug": false
     },
     "session": {
         "secret": "session_secret",
