@@ -1,9 +1,10 @@
 /* global io */
 /* global $ */
 
+var serverUrl;
 var nickname;
 
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect(serverUrl);
 
 socket.on('user_msg', function (data) {
   addMessage('<b>' + data.nickname + '</b> : ' + data.msg);
@@ -16,6 +17,10 @@ socket.on('not_logged', function (data) {
 function setNickname(nick) { // eslint-disable-line no-unused-vars
   nickname = nick;
   $('#nickname').text(nick);
+}
+
+function setServerUrl(url) { // eslint-disable-line no-unused-vars
+  serverUrl = url;
 }
 
 function addMessage(msg) {
