@@ -1,7 +1,13 @@
 var express = require('express');
 var app = express();
 var flash = require('connect-flash');
+var path = require('path');
+
+// We set config dir in the root path of the app (to work with process managers)
+process.env['NODE_CONFIG_DIR'] = path.resolve(__dirname) + '/config/';
 var config = require('config');
+
+// App files
 var passport = require('./lib/auth');
 var connection = require('./lib/database');
 var session = require('./lib/session');
@@ -9,7 +15,12 @@ var server = require('./lib/socket')(app, session);
 var router = require('./lib/router');
 
 // Serve static files
-app.use(express.static('public'));
+if (config.get('server.staticFiles')) {
+  app.use('/public', express.static(path.resolve(__dirname) + '/public'));
+}
+
+// Set the views dir
+app.set('views', path.resolve(__dirname) + '/views');
 
 // Request body parsing support
 app.use(express.json());

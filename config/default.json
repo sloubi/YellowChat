@@ -8,7 +8,8 @@
     "server": {
         "url": "http://localhost",
         "port": 3000,
-        "https": false
+        "https": false,
+        "staticFiles": true
     },
     "greenlock": {
         "server": "https://acme-staging-v02.api.letsencrypt.org/directory",
