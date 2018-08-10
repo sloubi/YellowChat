@@ -25,6 +25,12 @@ function setServerUrl(url) { // eslint-disable-line no-unused-vars
 
 function addMessage(msg) {
   $('#chat').append('<li>' + msg + '</li>');
+  scrollToLastMessage();
+}
+
+function scrollToLastMessage() {
+  var $chat = $('#chat');
+  $chat.animate({ scrollTop: $chat.height() }, 200);
 }
 
 $('#sendform').submit(function (e) {
@@ -38,4 +44,8 @@ $('#sendform').submit(function (e) {
   }
 
   $message.val('').focus();
+});
+
+$(function () {
+  scrollToLastMessage();
 });
