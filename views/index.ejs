@@ -23,7 +23,7 @@
         <div id="main">
             <ul id="chat">
                 <% history.forEach(function (row) { %>
-                    <li><b><%= row.nickname %></b> : <%= row.message %></li>
+                    <li><b><%= row.nickname %></b> (<%= row.created_at %>) : <%= row.message %></li>
                 <% }) %>
             </ul>
 
