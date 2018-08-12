@@ -14,9 +14,23 @@ socket.on('not_logged', function (data) {
   window.location.replace('/login');
 });
 
+socket.on('update_users_list', function (users) {
+  updateUsersList(users);
+});
+
+function updateUsersList(users) {
+  var aUsers = Object.keys(users).map(function (key) {
+    return users[key];
+  });
+  $('#users').text(aUsers.join(','));
+}
+
 function setNickname(nick) { // eslint-disable-line no-unused-vars
   nickname = nick;
   $('#nickname').text(nick);
+  socket.emit('new_user', function (users) {
+    updateUsersList(users);
+  });
 }
 
 function setServerUrl(url) { // eslint-disable-line no-unused-vars
