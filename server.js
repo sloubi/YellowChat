@@ -44,7 +44,9 @@ function exitHandler(options, err) {
   session.store.close();
   connection.end();
 
-  if (err) console.log(err.stack);
+  if (typeof err !== 'undefined' && typeof err.stack !== 'undefined') {
+    console.log('toto' + err.stack);
+  }
   if (options.exit) process.exit();
 }
 
